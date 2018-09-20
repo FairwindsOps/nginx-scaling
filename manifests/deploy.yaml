@@ -10,7 +10,7 @@ spec:
     metadata:
       labels:
         app: nginx
-        color: green
+        color: red
     spec:
       containers:
       - name: nginx
