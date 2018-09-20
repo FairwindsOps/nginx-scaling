@@ -14,7 +14,6 @@ from reload_time import check_nginx_reload
 
 NS = "ingress-testing"
 baseurl = "test.sudermanjr.hillghost.com"
-batchSize = 80
 
 def generate_new_hosts_list(ingress_count):
     """Write the hosts file if it does not exist"""
@@ -23,10 +22,10 @@ def generate_new_hosts_list(ingress_count):
             for _ in range(ingress_count):
                 file.write("{}.{}\n".format(uuid.uuid4(), baseurl))
 
-def batch(iterable, n=batchSize):
+def batch(iterable, batchSize):
     l = len(iterable)
-    for ndx in range(0, l, n):
-        yield iterable[ndx:min(ndx + n, l)]
+    for ndx in range(0, l, batchSize):
+        yield iterable[ndx:min(ndx + batchSize, l)]
 
 def load_hosts_list():
     """grab the list of hosts"""
@@ -34,7 +33,7 @@ def load_hosts_list():
         hosts = f.read().splitlines()
     return hosts
 
-def update_ingresses(ingress_count):
+def update_ingresses(ingress_count, batchSize):
     """
     Generates the necessary hostnames and then applies the ingress
     If the number increases, don't change the names, just append to them.
@@ -58,7 +57,7 @@ def update_ingresses(ingress_count):
     hosts = load_hosts_list()
 
     ingressCount = 1
-    for hostBatch in batch(hosts):
+    for hostBatch in batch(hosts, batchSize):
         ingress_header = """
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -97,11 +96,11 @@ spec:
                     exists = True
 
         if exists:
-            resp2 = k8s_beta.replace_namespaced_ingress(body=ing, namespace=NS, name='test')
+            resp2 = k8s_beta.replace_namespaced_ingress(body=ing, namespace=NS, name='test-{}'.format(ingressCount))
         else:
             resp2 = k8s_beta.create_namespaced_ingress(body=ing, namespace=NS)
 
         ingressCount += 1
 
 if __name__ == "__main__":
-    update_ingresses(4000)
+    update_ingresses(4000, 80)
