@@ -8,7 +8,7 @@ A basic nginx deployment that can be used as an endpoint that will return 200.  
 
 ## testing
 
-This is where the python scripts for testing reload times are located.  The `run.py` file allows you to set a number of random ingresses and roll through them while collecting data on reload times.  The results folder has some data I collected.
+This is where the python scripts for testing reload times are located.  The `run.py` file allows you to set a number of random ingresses and roll through them while collecting data on reload times.  The results folder has some data I collected.  I will continue to add to this as I tweak more and more settings.
 
 ##  load
 
