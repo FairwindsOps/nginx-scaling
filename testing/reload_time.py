@@ -39,16 +39,14 @@ def check_nginx_reload(controllerName):
         for pod_name in pod_names:
             if len(start_times[pod_name]) != len(end_times[pod_name]):
                 sleep(10)
-            elif (len(start_times[pod_name]) == 0 or len(end_times[pod_name]) == 0):
-                reload_times.append('No Data')
-                complete = True
             else:
                 complete = True
-                for i  in enumerate(end_times[pod_name]):
+                for i, val  in enumerate(end_times[pod_name]):
                     reload = end_times[pod_name][i] - start_times[pod_name][i]
                     reload_sec = reload.total_seconds()
                     reload_times.append(str(reload_sec))
-
+    if len(reload_times) == 0:
+        reload_times.append('No Data')
     return reload_times
 
 if __name__ == "__main__":
