@@ -10,12 +10,17 @@ import os
 steps = list(range(4001, 4002, 1))
 data = {}
 
+try:
+    os.mkdir("ingresses")
+except:
+    pass
+
 if os.path.isfile('results/results.json'):
     print("ERROR - Ouput file already exists.  Exiting.")
     sys.exit(1)
 for step in steps:
     print("Ingress Count: {}".format(step))
-    update_ingresses(step)
+    update_ingresses(step, 80)
     sleep(5)
     data[step] = check_nginx_reload("nginx-ingress-controller")[0]
     print("Reload Time: {}".format(data[step]))

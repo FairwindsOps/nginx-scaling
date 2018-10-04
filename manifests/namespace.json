@@ -1,0 +1,11 @@
+{
+  "kind": "Namespace",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "ingress-testing",
+    "labels": {
+      "name": "ingress-testing"
+    }
+  }
+}
+

@@ -26,15 +26,18 @@ def check_nginx_reload(controllerName):
         for pod_name in pod_names:
             start_times[pod_name] = []
             end_times[pod_name] = []
-            log = v1.read_namespaced_pod_log(name=pod_name, namespace="infra", follow=False)
+            log = v1.read_namespaced_pod_log(
+                name=pod_name, namespace="infra", follow=False)
             for line in log.splitlines():
                 if "reload" in line:
                     if 'required' in line:
                         match = re.search(timeformat, line)
-                        start_times[pod_name].append(datetime.strptime(match.group(), '%H:%M:%S.%f'))
+                        start_times[pod_name].append(datetime.strptime(
+                            match.group(), '%H:%M:%S.%f'))
                     if 'reloaded' in line:
                         match = re.search(timeformat, line)
-                        end_times[pod_name].append(datetime.strptime(match.group(), '%H:%M:%S.%f'))
+                        end_times[pod_name].append(datetime.strptime(
+                            match.group(), '%H:%M:%S.%f'))
 
         for pod_name in pod_names:
             if len(start_times[pod_name]) != len(end_times[pod_name]):

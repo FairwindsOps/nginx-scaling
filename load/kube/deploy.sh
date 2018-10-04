@@ -1,5 +1,6 @@
 currentdir=$(pwd)
 
+kubectl create ns k6-nginx
 kubectl get -n k6-nginx configmap k6files && kubectl delete configmap -n k6-nginx k6files || true
 kubectl get -n k6-nginx configmap utilities && kubectl delete configmap -n k6-nginx utilities || true
 kubectl create configmap \

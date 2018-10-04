@@ -13,7 +13,7 @@ from Queue import Queue
 from reload_time import check_nginx_reload
 
 NS = "ingress-testing"
-baseurl = "test.sudermanjr.hillghost.com"
+baseurl = "test.gcp.sudermanjr.hillghost.com"
 
 def generate_new_hosts_list(ingress_count):
     """Write the hosts file if it does not exist"""

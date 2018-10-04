@@ -3,6 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: test-service
+  namespace: ingress-testing
 spec:
   selector:
     app: nginx
