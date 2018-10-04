@@ -23,3 +23,4 @@ The `utility-run.sh` script can be used to analyze the results or put them somew
 * Dynamic reload is great.  Keep your log levels low.  On nginx logging v=3 I saw each nginx controller consume about 15G of memory.
 * Disable ipv6 explicitly in nginx-ingress
 * Prometheus metrics are not a great option for Datadog and nginx.  Stick to the native nginx metrics.  Memory consumption of the Datadog container gets very high with this number of ingresses.
+* The smallest issue is multiplied exponentially when scaling this large.  Keep your changes small and test thoroughly.
